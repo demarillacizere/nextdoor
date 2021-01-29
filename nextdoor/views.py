@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
-from .models import Neighborhood, Business, Announcement
+from .models import Neighborhood, Business, Alert, Authority, Hospital
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, NewCommentForm, NewBusinessForm
 from django.contrib.auth.models import User
@@ -28,5 +28,5 @@ def register(request):
 
 @login_required
 def home(request):
-    announce = Announcement.objects.all().order_by('-date_posted')
-    return render(request, 'index.html',{'announce':announce})
+    alerts = Alerts.objects.all().order_by('-date_posted')
+    return render(request, 'index.html',{'alerts':alerts})
