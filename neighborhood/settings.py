@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'insta.wsgi.application'
+WSGI_APPLICATION = 'neighborhood.wsgi.application'
 
 
 # Database

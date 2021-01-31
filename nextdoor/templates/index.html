@@ -3,6 +3,15 @@
 {% block content %}
 {{block.super}}
 
-<div>Hello world...</div>
+<div class='container'>
+    <div>
+        {% for hood in hoods %}
+        <div>
+            <h3>{{hood.name}}</h3>
+            <p>{{hood.location}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock%}
