@@ -15,7 +15,7 @@ class RegisterForm(UserCreationForm):
 class NewAlertForm(forms.ModelForm):
     class Meta:
         model = Alert
-        exclude = ['user','neighborhood']
+        exclude = ['user','hood']
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
