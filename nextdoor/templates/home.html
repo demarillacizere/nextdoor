@@ -21,7 +21,7 @@
           <a class="nav-link" data-toggle="tab" href="#posts">Posts</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#">Leave the neighborhood</a>
+          <a class="nav-link" data-toggle="tab" href="#leave">Leave the neighborhood</a>
         </li>
       </ul>
     <div class='tab-content'>
@@ -34,7 +34,7 @@
             </div>
             <div class='col-md-5'>
                 <h5><b>Location: </b><span>{{hood.location}}</span></h4>
-                <h5><b>Number of occupants: </b><span>{{hood.occupants}}</span></h4>
+                <h5><b>Number of occupants: </b><span>{{count}}</span></h4>
                 <h5><b>Ambulance: </b><span>{{hood.health_contact}}</span></h4>
                 <h5><b>Police: </b><span>{{hood.police_contact}}</span></h4>
             </div>
@@ -59,8 +59,10 @@
     </div>
     <div id='posts' class="tab-pane container fade">
     <!-- <h3>Posts</h3> -->
+    <div class='row'>
+    <div class='col-md-1'></div>
+    <div class='col-md-11'>
     <div class='row' style='grid-gap:20px;'>
-        <div class='col-md-1'></div>
         {% for alert in alerts %}
         <div class='col-md-5 card' style='box-shadow:2px 2px 3px grey;'><br>
             <div><img src='{{alert.user.profile.profile_pic.url}}' width='25px' height='25px' style='border-radius:50%; float:left;'> &nbsp; {{alert.user}} posted <br> &nbsp;<small> {{alert.date_posted}}</small></div><hr>
@@ -75,12 +77,13 @@
                 {% endif %}
         </div>
         {% endfor %}
-    </div><br>
+        </div>
+    <br>
 
-    <hr>
+    <hr><br>
         
-    <div class="container" style="padding: 40px;" >
-        <h4 style="font-weight: bold;">Post an alert</h4><hr>
+    <div class="container">
+        <h4 class='text-center' style="font-weight: bold;">Post an alert</h4><br>
         <div class="main-agileinfo">
             <div class="agileits-top">
                 {{form.media}}
@@ -92,7 +95,12 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div></div></div></div>
+
+<div id='leave' class="tab-pane container fade text-center" >
+    <p>Do you confirm to leave this neighborhood?</p>
+    <a class='btn btn-success' href="{% url 'leave' %}">Yes</a> <a class='btn btn-danger' href="{% url 'home' %}">No</a>
+</div>
 </div></div>
 {% else %}
     <div>

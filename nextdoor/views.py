@@ -6,9 +6,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, NewBusinessForm, ProfileUpdateForm, NewAlertForm
 from django.contrib.auth.models import User
 
-def index(request):
-    hoods = Neighborhood.objects.all()
-    return render(request, 'index.html',{'hoods':hoods})
 
 def register(request):
     if request.method == 'POST':
@@ -26,25 +23,30 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request,'registration/registration_form.html')
-
+@login_required
 def home(request):
     hoods = Neighborhood.objects.all()
     current_user = request.user
     profile = Profile.objects.get(user=current_user)
-    hood = Neighborhood.objects.get(pk=profile.neighborhood.id)
-    businesses = Business.objects.filter(neighborhood=hood).all()
-    alerts = Alert.objects.filter(hood=hood).all()
-    if request.method == 'POST':
-        user=request.user
-        form = NewAlertForm(request.POST)
-        if form.is_valid():
-            neighborhood = hood
-            alert=form.save()
-            alert.save()
-
+    if profile.neighborhood:
+        hood = Neighborhood.objects.get(pk=profile.neighborhood.id)
+        count = Profile.objects.filter(neighborhood=hood).count()
+        businesses = Business.objects.filter(neighborhood=hood).all()
+        alerts = Alert.objects.filter(hood=hood).all()
+        if request.method == 'POST':
+            user=request.user
+            form = NewAlertForm(request.POST)
+            if form.is_valid():
+                alert=form.save(commit=False)
+                alert.user=current_user
+                alert.hood=hood
+                alert.save()
+                return redirect('home')
+        else:
+            form=NewAlertForm
     else:
-        form=NewAlertForm
-    return render(request, 'home.html',{'hood':hood,'hoods':hoods,'alerts':alerts,'businesses':businesses,'form':form})
+        return redirect(my_profile)
+    return render(request, 'home.html',{'hood':hood,'hoods':hoods,'count':count,'alerts':alerts,'businesses':businesses,'form':form})
 
 def my_profile(request):
     user = request.user
@@ -60,3 +62,8 @@ def my_profile(request):
         'profile':profile,
     }
     return render(request,"my_profile.html",context=context)
+
+def leave(request):
+    user = request.user
+    Profile.objects.filter(user=user).update(neighborhood=None)
+    return redirect('my_profile')

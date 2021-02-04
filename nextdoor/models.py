@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 class Neighborhood(models.Model):
     name=models.CharField(max_length=40)
     location=models.CharField(max_length=40)
-    occupants = models.PositiveIntegerField()
     health_contact = models.PositiveIntegerField()
     police_contact = models.PositiveIntegerField()
     hood_pic = models.ImageField(upload_to='images/')

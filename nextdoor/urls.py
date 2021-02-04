@@ -11,6 +11,7 @@ urlpatterns = [
     # url(r'^update/post/(?P<post_id>\d+)',views.update_post,name = 'update_post'),
     # url(r'^add/profile/$',views.add_profile,name = 'add_profile'),
     url(r'^my_profile',views.my_profile,name = 'my_profile'),
+    url(r'^leave',views.leave,name = 'leave'),
     # url(r'^search/', views.search_results, name='search_results'),
     # url(r'^post(?P<post_id>\d+)', views.single_post, name='single_post'),
  
