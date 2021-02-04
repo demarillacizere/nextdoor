@@ -8,7 +8,7 @@ class Neighborhood(models.Model):
     occupants = models.PositiveIntegerField()
     health_contact = models.PositiveIntegerField()
     police_contact = models.PositiveIntegerField()
-    hood_pic = models.ImageField(upload_to='images/', blank=True)
+    hood_pic = models.ImageField(upload_to='images/')
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def create_neigborhood(self):
@@ -61,10 +61,11 @@ class Profile(models.Model):
 
 
 class Business(models.Model):
-    name=models.CharField(max_length=40)
+    name=models.CharField(max_length=100)
+    pic=models.ImageField(upload_to='pictures/')
     neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
     contacts=models.CharField(max_length=40, null=True)
-    description=models.CharField(max_length=40,null=True)
+    description=models.CharField(max_length=200,null=True)
     
 
 
@@ -72,7 +73,7 @@ class Business(models.Model):
         return self.name
 
 class Hospital(models.Model):
-    name=models.CharField(max_length=40)
+    name=models.CharField(max_length=100)
     neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
     contacts=models.CharField(max_length=40, null=True)
 
@@ -80,7 +81,7 @@ class Hospital(models.Model):
         return self.name
 
 class Alert(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to='posts',blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)

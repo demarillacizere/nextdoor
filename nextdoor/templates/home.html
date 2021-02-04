@@ -1,0 +1,91 @@
+{%extends 'base.html'%}
+{% load static%}
+{% block content %}
+{% load bootstrap4 %}
+{{block.super}}
+
+<div class='container' style='margin-top:150px;'>
+    {% if user.is_authenticated %}
+    <ul class="nav justify-content-center nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#overview">Overview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#business">Business</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#">Leave the neighborhood</a>
+        </li>
+      </ul><br><br>
+    <div class='tab-content'>
+    <div id='overview' class="tab-pane container active">
+        <h4>{{hood.name}}</h4>
+    </div>
+    <div id='business'class="tab-pane container">
+        <h3>Businesses</h3>
+    {% for business in businesses %}
+        <div class='col-md-3 card'><br>
+            <h4>{{business.name}}</h4>
+                <div>
+                    <p>{{business.description}}</p>
+                </div>
+                <!-- {% if business.image %}
+                <div>
+                    <img src='{{alert.image.url}}' width='100%'height='250px;'>
+                </div>
+                {% endif %} -->
+                <a class='btn btn-info' href='#'>View The Business</a><br><br>
+        </div>
+        {% endfor %}
+    </div>
+    <div id='posts' class="tab-pane container">
+    <h3>Posts</h3>
+    <div class='row' style='grid-gap:20px;'>
+        {% for alert in alerts %}
+        <div class='col-md-5 card' style='box-shadow:2px 2px 3px grey;'><br>
+            <div><img src='{{alert.user.profile.profile_pic.url}}' width='25px' height='25px' style='border-radius:50%; float:left;'> &nbsp; {{alert.user}} posted <br> &nbsp;<small> {{alert.date_posted}}</small></div><hr>
+            <h4>{{alert.title}}</h4>
+                <div>
+                    <p>{{alert.content}}</p>
+                </div>
+                {% if alert.image %}
+                <div>
+                    <img src='{{alert.image.url}}' width='100%'height='250px;'>
+                </div>
+                {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+        
+    <div class="container" style="padding: 40px;" >
+        <h4 style="font-weight: bold;">Post an alert</h4><hr>
+        <div class="main-agileinfo">
+            <div class="agileits-top">
+                {{form.media}}
+                <form  action="{% url 'home' %}" method="post" enctype="multipart/form-data" id="AlertForm">
+                {%csrf_token%}
+
+                {% bootstrap_form form%}
+                <input  class="btn btn-sm btn-warning" type="submit" value="New Alert">
+                </form>
+            </div>
+        </div>
+    </div>
+</div></div>
+{% else %}
+    <div>
+        {% for hood in hoods %}
+        <div>
+            <h3>{{hood.name}}</h3>
+            <p>{{hood.location}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock%}

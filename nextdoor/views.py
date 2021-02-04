@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
-from .models import Neighborhood, Business, Alert, Hospital
+from .models import Neighborhood, Profile, Business, Alert, Hospital
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm, NewBusinessForm
+from .forms import RegisterForm, NewBusinessForm, ProfileUpdateForm, NewAlertForm
 from django.contrib.auth.models import User
 
 def index(request):
@@ -27,7 +27,36 @@ def register(request):
         form = RegisterForm()
     return render(request,'registration/registration_form.html')
 
-@login_required
 def home(request):
-    alerts = Alerts.objects.all().order_by('-date_posted')
-    return render(request, 'index.html',{'alerts':alerts})
+    hoods = Neighborhood.objects.all()
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    hood = Neighborhood.objects.get(pk=profile.neighborhood.id)
+    businesses = Business.objects.filter(neighborhood=hood).all()
+    alerts = Alert.objects.filter(hood=hood).all()
+    if request.method == 'POST':
+        user=request.user
+        form = NewAlertForm(request.POST)
+        if form.is_valid():
+            neighborhood = hood
+            alert=form.save()
+            alert.save()
+
+    else:
+        form=NewAlertForm
+    return render(request, 'home.html',{'hood':hood,'hoods':hoods,'alerts':alerts,'businesses':businesses,'form':form})
+
+def my_profile(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    form=ProfileUpdateForm(instance=profile)
+    
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+    context={
+        'form':form,
+        'profile':profile,
+    }
+    return render(request,"my_profile.html",context=context)
