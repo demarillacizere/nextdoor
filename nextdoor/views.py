@@ -23,6 +23,18 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request,'registration/registration_form.html')
+
+@login_required
+def index(request):
+    hoods = Neighborhood.objects.all()
+    return render(request,'index.html',{'hoods':hoods})
+
+def join(request,hood_id):
+    user = request.user
+    hood= Neighborhood.objects.get(pk=hood_id)
+    Profile.objects.filter(user=user).update(neighborhood=hood)
+    return redirect('home')
+
 @login_required
 def home(request):
     hoods = Neighborhood.objects.all()
@@ -45,7 +57,7 @@ def home(request):
         else:
             form=NewAlertForm
     else:
-        return redirect(my_profile)
+        return redirect('index')
     return render(request, 'home.html',{'hood':hood,'hoods':hoods,'count':count,'alerts':alerts,'businesses':businesses,'form':form})
 
 def my_profile(request):
@@ -66,4 +78,23 @@ def my_profile(request):
 def leave(request):
     user = request.user
     Profile.objects.filter(user=user).update(neighborhood=None)
-    return redirect('my_profile')
+    return redirect('index')
+
+def search_results(request):
+
+    if 'business' in request.GET and request.GET["business"]:
+        search_term = request.GET.get("business")
+        searched_business = Business.search(search_term)
+        print(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"businesses": searched_business})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+@login_required(login_url='/accounts/login/') 
+
+def business(request,business_id):
+    business=Business.objects.get(id=business_id)
+    return render(request,"business.html",{"business":business})

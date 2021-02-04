@@ -1,10 +1,12 @@
- 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Q
+import datetime as dt
 
 class Neighborhood(models.Model):
     name=models.CharField(max_length=40)
     location=models.CharField(max_length=40)
+    occupants_count = models.PositiveIntegerField(default=0)
     health_contact = models.PositiveIntegerField()
     police_contact = models.PositiveIntegerField()
     hood_pic = models.ImageField(upload_to='images/')
@@ -70,6 +72,11 @@ class Business(models.Model):
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def search(cls,searchterm):
+        search = Business.objects.filter(Q(name__icontains=searchterm)|Q(description__icontains=searchterm))
+        return search
 
 class Hospital(models.Model):
     name=models.CharField(max_length=100)

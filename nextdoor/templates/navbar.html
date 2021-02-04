@@ -33,10 +33,10 @@
       </button> -->
     </div>
 
-        <form class="navbar-form navbar-center" role="search" action=>
+        <form class="navbar-form navbar-center" role="search" action="{% url 'search_results' %}">
 
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Business" name="user">
+            <input type="text" class="form-control" placeholder="Search Business" name="business">
             <div class="input-group-btn">
               <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
             </div>
@@ -47,12 +47,11 @@
     <div class="">
     <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-        <li><a href="{% url 'my_profile' %}" style='text-decoration: none;'><img src='{{my_profile.profile_pic.url}}' width='20px' height='20px' style='border-radius:50%;' class='image-thumbnail'>{{request.user.username}}</a></li>
-        <li><a href="" class="nav-link"><i class="fas fa-plus"></i></a></li>
         <li class="dropdown nav-item">
-          <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-ellipsis-v"></i>
+          <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-user"> My account</i>
                 </a>
           <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url 'my_profile' %}" style='text-decoration: none;'><img src='{{my_profile.profile_pic.url}}' width='20px' height='20px' style='border-radius:50%;' class='image-thumbnail'>{{request.user.username}}</a></li>
             <li>
               <a href="/accounts/password/change">Change Password</a>
             </li>
@@ -66,6 +65,9 @@
       <a class='btn btn-default' href="/accounts/login">Login</a>
     </li>
     {% endif %}
+    <li>
+      <a class='btn btn-default' href="/admin">Login As Admin</a>
+    </li>
 </ul>
   </div></div>
 </nav>

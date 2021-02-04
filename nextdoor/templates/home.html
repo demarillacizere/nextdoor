@@ -40,11 +40,11 @@
             </div>
         </div>
     </div>
-    <div id='business'class="tab-pane container fade">
+    <div id='business'class="tab-pane container fade" style='text-align:center;'>
         <!-- <h3>Businesses</h3> -->
     {% for business in businesses %}
         <div class='col-md-3 card'><br>
-            <h4>{{business.name}}</h4>
+            <h5><b>{{business.name}}</b></h4><br>
                 <div>
                     <p>{{business.description}}</p>
                 </div>
@@ -53,12 +53,12 @@
                     <img src='{{alert.image.url}}' width='100%'height='250px;'>
                 </div>
                 {% endif %} -->
-                <a class='btn btn-info' href='#'>View The Business</a><br><br>
+                <a class='btn btn-info' href='/business/{{business.id}}'>View</a><br><br>
         </div>
         {% endfor %}
     </div>
-    <div id='posts' class="tab-pane container fade">
-    <!-- <h3>Posts</h3> -->
+    <div id='posts' class="tab-pane container fade" style='margin-top:80px;'>
+    <!-- <h5><b>Posts</b></h3> -->
     <div class='row'>
     <div class='col-md-1'></div>
     <div class='col-md-11'>
