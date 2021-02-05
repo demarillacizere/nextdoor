@@ -1,75 +1,53 @@
-{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    nav{
-      background-color:rgb(115, 115, 151);
-      position:fixed;
-      top:0;
-      width:100%;
-      color: black;
-      z-index:2;
-      font-family: 'Vollkorn', serif;
+    <meta charset="utf-8">
+    <meta name="viewport">
+    <style>
+        .navbar{
+          background-color:rgb(51, 45, 45);
+          color:rgb(235, 110, 38);
+          font-family: 'Vollkorn', serif;}
+        @media screen and (max-width:992px){
+        #search_form, #profile, .upload{
+       display: none;
+        }
     }
-    nav a{
-      text-decoration: none;
-      color:black;
-    }
-  </style>
+    </style>
 </head>
+
 <body>
-<nav class="navbar navbar-light" style='position:fixed;'>
-  <div class="container-fluid">
-    <div class="navbar-header">
-    <a class="navbar-brand" href="{% url 'home' %}">Nextdoor</a>
-      <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button> -->
-    </div>
+    <div class="navbar container-fluid">
+      <div class="navbar-header">
+        <a class="nav-link" href="{% url 'index' %}" style="font-size:30px;font-weight:bolder; color:rgb(235, 65, 35); font-family: 'Carter One', cursive; ">Nextdoor</a>
+      </div>
+      <form class="navbar-form navbar-center" role="search" id='search_form' action="{% url 'search_results' %}">
+        <div class="form-group">
+          <input type="text" name="business" placeholder="Search business..." id="search">
+        </div>
+      </form>
+      <div class='nav navbar navbar-right'>
+              {% if user.is_authenticated %}
+                  <div class="dropdown">
+                      <a class="btn btn" data-toggle="dropdown" style="font-weight:bolder; color:rgb(255, 255, 255);">{{ user.username }} <img src='{{user.profile.profile_pic.url}}' width='18px' height='18px' style='border-radius:50%;'>
+                      </a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{%url 'my_profile'%}">Profile</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/logout">Logout</a>
+                      </div>
+              {% else %}
 
-        <form class="navbar-form navbar-center" role="search" action="{% url 'search_results' %}">
+              <a class='btn btn-default' href="/accounts/login/?next=/">Login</a>
 
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Business" name="business">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+              {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-        </form>
-
-    <div class="">
-    <ul class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-        <li class="dropdown nav-item">
-          <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-user"> My account</i>
-                </a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url 'my_profile' %}" style='text-decoration: none;'><img src='{{my_profile.profile_pic.url}}' width='20px' height='20px' style='border-radius:50%;' class='image-thumbnail'>{{request.user.username}}</a></li>
-            <li>
-              <a href="/accounts/password/change">Change Password</a>
-            </li>
-            <li>
-              <a href="/logout">Logout</a>
-            </li>
-          </ul>
-        </li>
-    {% else %}
-    <li>
-      <a class='btn btn-default' href="/accounts/login">Login</a>
-    </li>
-    {% endif %}
-    <li>
-      <a class='btn btn-default' href="/admin">Login As Admin</a>
-    </li>
-</ul>
-  </div></div>
-</nav>
+        </div>
+    </div><br><br>
 </body>
+
 </html>

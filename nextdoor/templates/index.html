@@ -4,11 +4,17 @@
 {% load bootstrap4 %}
 {{block.super}}
 
-<div class='container' style='margin-top:180px;'>
-<h3>Join your neighborhood</h3><br>
-    <div class='row'>
+<div class='container'>
+<h3 class='text-center'><b>Instantly connect with your neighborhood</b></h3><br>
+<div class='row'>
+    <div class='col-md-3'></div>
+    <div class='col-md-6 col-mg-5'>
+        <p class='text-center'>It's where communities come together to greet newcomers, exchange recommendations, and read the latest local news. Where neighbors support local businesses and get updates from public agencies. It's how to get the most out of everything nearby. Welcome, neighbor.</p><br>
+    </div>
+</div>
+    <div class='row' style='grid-gap:30px;'>
         {% for hood in hoods %}
-        <div class='col-md-6 card' style='text-align:center;padding:20px;'>
+        <div class='col-md-5 card' style='text-align:center;padding:20px;'>
             <h5><b>{{hood.name}}</b></h5><br>
             <div><img src='{{hood.hood_pic.url}}' width="100%"></div><br>
             <a class='btn btn-info' href='/join/{{hood.id}}' style='width:40%; margin:auto;'>Join</a>
