@@ -16,7 +16,7 @@
         {% for hood in hoods %}
         <div class='col-md-5 card' style='text-align:center;padding:20px;'>
             <h5><b>{{hood.name}}</b></h5><br>
-            <div><img src='{{hood.hood_pic.url}}' width="100%"></div><br>
+            <div><img src='{{hood.hood_pic.url}}' width="100%" height='250px;'></div><br>
             <a class='btn btn-info' href='/join/{{hood.id}}' style='width:40%; margin:auto;'>Join</a>
         </div>
         {% endfor %}

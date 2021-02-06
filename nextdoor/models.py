@@ -44,7 +44,7 @@ class Neighborhood(models.Model):
 
 class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic=models.ImageField(upload_to='profiles/',default='default.jpeg')
+    profile_pic=models.ImageField(upload_to='profiles/',default='profiles/default.png')
     first_name=models.CharField(max_length=30)
     last_name=models.CharField(max_length=30)
     bio= models.CharField(max_length=250)

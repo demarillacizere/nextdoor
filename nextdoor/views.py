@@ -3,6 +3,8 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
 from .models import Neighborhood, Profile, Business, Alert, Hospital
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login
 from .forms import RegisterForm, NewBusinessForm, ProfileUpdateForm, NewAlertForm
 from django.contrib.auth.models import User
 
@@ -98,3 +100,16 @@ def search_results(request):
 def business(request,business_id):
     business=Business.objects.get(id=business_id)
     return render(request,"business.html",{"business":business})
+
+def register_buss(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewBusinessForm(request.POST)
+        if form.is_valid():
+                business=form.save(commit=False)
+                business.neighborhood=current_user.profile.neighborhood
+                business.save()
+                return redirect('home')
+    else:
+        form = NewBusinessForm()
+    return render(request,'Newbusiness.html')

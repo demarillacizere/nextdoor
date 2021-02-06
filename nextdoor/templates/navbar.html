@@ -20,9 +20,13 @@
 <body>
     <div class="navbar container-fluid">
       <div class="navbar-header">
+        {% if request.user.profile.neighborhood%}
+        <a class="nav-link" href="{% url 'home' %}" style="font-size:30px;font-weight:bolder; color:rgb(235, 65, 35); font-family: 'Carter One', cursive; ">Nextdoor</a>
+        {% else %}
         <a class="nav-link" href="{% url 'index' %}" style="font-size:30px;font-weight:bolder; color:rgb(235, 65, 35); font-family: 'Carter One', cursive; ">Nextdoor</a>
+        {% endif %}
       </div>
-      <form class="navbar-form navbar-center" role="search" id='search_form' action="{% url 'search_results' %}">
+      <form class="navbar-form navbar-center" role="search" id='search_form' action="{% url 'search_results' %}" style='margin-top:10px;'>
         <div class="form-group">
           <input type="text" name="business" placeholder="Search business..." id="search">
         </div>
@@ -42,6 +46,7 @@
               <a class='btn btn-default' href="/accounts/login/?next=/">Login</a>
 
               {% endif %}
+              <a class='btn btn-default' href="/admin"><i class="fas fa-user"></i> Admin</a>
                         </div>
                     </div>
                 </div>
