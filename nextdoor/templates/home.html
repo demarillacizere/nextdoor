@@ -40,10 +40,11 @@
             </div>
         </div>
     </div>
-    <div id='business'class="tab-pane container fade" style='text-align:center;'>
+    <div id='business'class="tab-pane container fade" >
         <!-- <h3>Businesses</h3> -->
+        <a href='/newbusiness' class='btn' style='color:rgb(109, 106, 106);background-color:white;'>Register your business</a><br><br>
     {% for business in businesses %}
-        <div class='col-md-3 card'><br>
+        <div class='col-md-3 card' style='text-align:center;'><br>
             <h5><b>{{business.name}}</b></h4><br>
                 <div>
                     <p>{{business.description}}</p>
@@ -53,7 +54,7 @@
                     <img src='{{alert.image.url}}' width='100%'height='250px;'>
                 </div>
                 {% endif %} -->
-                <a class='btn btn-info' href='/business/{{business.id}}'>View</a><br><br>
+                <a class='btn btn-default' href='/business/{{business.id}}'>View</a><br><br>
         </div>
         {% endfor %}
     </div>
@@ -91,7 +92,7 @@
                 {%csrf_token%}
 
                 {% bootstrap_form form%}
-                <input  class="btn btn-sm btn-warning" type="submit" value="New Alert">
+                <input  class="btn btn-sm btn-default" type="submit" value="New Alert">
                 </form>
             </div>
         </div>

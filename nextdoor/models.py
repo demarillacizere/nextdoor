@@ -49,6 +49,7 @@ class Profile(models.Model):
     last_name=models.CharField(max_length=30)
     bio= models.CharField(max_length=250)
     email=models.EmailField()
+    location= models.CharField(max_length=250,default='add your general location')
     neighborhood=models.ForeignKey(Neighborhood, on_delete=models.CASCADE, null=True)
 
     def save_profile(self):

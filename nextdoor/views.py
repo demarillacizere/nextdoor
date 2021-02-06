@@ -101,15 +101,16 @@ def business(request,business_id):
     business=Business.objects.get(id=business_id)
     return render(request,"business.html",{"business":business})
 
-def register_buss(request):
+def newbusiness(request):
     current_user = request.user
     if request.method == 'POST':
         form = NewBusinessForm(request.POST)
         if form.is_valid():
                 business=form.save(commit=False)
                 business.neighborhood=current_user.profile.neighborhood
+                print(business.neighborhood)
                 business.save()
                 return redirect('home')
     else:
         form = NewBusinessForm()
-    return render(request,'Newbusiness.html')
+    return render(request,'Newbusiness.html',{'form':form})

@@ -34,7 +34,7 @@
       <div class='nav navbar navbar-right'>
               {% if user.is_authenticated %}
                   <div class="dropdown">
-                      <a class="btn btn" data-toggle="dropdown" style="font-weight:bolder; color:rgb(255, 255, 255);">{{ user.username }} <img src='{{user.profile.profile_pic.url}}' width='18px' height='18px' style='border-radius:50%;'>
+                      <a class="btn btn-default" data-toggle="dropdown" style="font-weight:bolder; color:rgb(255, 255, 255);">{{ user.username }} <img src='{{user.profile.profile_pic.url}}' width='18px' height='18px' style='border-radius:50%;'>
                       </a>
                       <div class="dropdown-menu">
                           <a class="dropdown-item" href="{%url 'my_profile'%}">Profile</a>
