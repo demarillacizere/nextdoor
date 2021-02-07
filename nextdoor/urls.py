@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^index',views.index,name='index'),
     url(r'^join/(\d+)', views.join, name='join'),
     url(r'^register/',views.register, name='register'),
-    # url(r'^delete/post/(?P<post_id>\d+)',views.delete_post,name = 'delete_post'),
     url(r'^my_profile',views.my_profile,name = 'my_profile'),
     url(r'^leave',views.leave,name = 'leave'),
     url(r'^search/', views.search_results, name='search_results'),
