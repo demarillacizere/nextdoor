@@ -6,9 +6,10 @@
 
 # LIVE SERVER
 The application can be found **[here](https://dnextdoor.herokuapp.com)**
+
 # DESCRIPTION
 
-A web application where users can login to join his neighborhood and get updates about wht is happening in his neighborhood.
+A web application where users can login to join his neighborhood to stay in the loop about what is happening in his neighborhood.
 
 #### User Stories
 
