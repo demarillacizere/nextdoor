@@ -30,7 +30,8 @@ def register(request):
 def index(request):
     hoods = Neighborhood.objects.all()
     return render(request,'index.html',{'hoods':hoods})
-
+    
+@login_required
 def join(request,hood_id):
     user = request.user
     hood= Neighborhood.objects.get(pk=hood_id)
@@ -62,6 +63,7 @@ def home(request):
         return redirect('index')
     return render(request, 'home.html',{'hood':hood,'hoods':hoods,'count':count,'alerts':alerts,'businesses':businesses,'form':form})
 
+@login_required
 def my_profile(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -95,8 +97,8 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
-@login_required(login_url='/accounts/login/') 
 
+@login_required(login_url='/accounts/login/') 
 def business(request,business_id):
     business=Business.objects.get(id=business_id)
     return render(request,"business.html",{"business":business})
