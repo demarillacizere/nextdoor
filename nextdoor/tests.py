@@ -100,6 +100,17 @@ class NeighborhoodTestClass(TestCase):
     def test_instance(self):
         self.assertTrue(isinstance(self.new_hood,Neighborhood))    
 
+    def test_delete_neighborhood(self):
+        self.new_hood.create_neigborhood()
+        self.new_hood.delete_neigborhood()
+        hood = Neighborhood.objects.all()
+        self.assertTrue(len(hood)==0)
+
+    def test_update_neigborhood_method(self):
+        self.new_hood.create_neigborhood()
+        new_name = 'Lavington' 
+        update = self.new_hood.update_neighborhood(self.new_hood.id,new_name)
+        self.assertEqual(update,new_name)
 
     def tearDown(self):
         Neighborhood.objects.all().delete() 
